@@ -57,6 +57,6 @@ PS:Quando terminava os códigos testava 3 vezes , se eu não conseguisse resolve
 
 ##  Como rodar o projeto localmente
 
-1. **Clone o repositório:**
+1. **Baixe diretamente:**
    ```bash
    git clone [https://github.com/apollonotebook/apollo-notebook.git](https://github.com/apollonotebook/apollo-notebook.git)
