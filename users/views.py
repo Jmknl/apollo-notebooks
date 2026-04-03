@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login , logout
 from django.core.mail import send_mail
 from django.conf import settings
+import threading
 import random
 from .forms import RegistroComEmailForm
 from .models import Verification
@@ -17,9 +18,9 @@ def register(request):
 
         if form.is_valid():
             new_user = form.save(commit=False)
-            
+
             new_user.is_active = False  
-            
+
             new_user.save()
 
             code = str(random.randint(100000, 999999))
@@ -30,7 +31,8 @@ def register(request):
             remetente = settings.EMAIL_HOST_USER
             destinatario = [new_user.email]
 
-            send_mail(assunto, mensagem, remetente, destinatario, fail_silently=False)
+            thread_email = threading.Thread(target=send_mail, args=(assunto, mensagem, remetente, destinatario))
+            thread_email.start()
 
             request.session["id_usuario_pendente"] = new_user.id
             return redirect("users:verificar_codigo")
