@@ -1,0 +1,29 @@
+{% extends "appliance/base.html" %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 60vh;">
+    <div
+        style="background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 450px; width: 100%; text-align: center;">
+
+        <h2 style="color: #333; margin-bottom: 15px;">🔒 Recuperar Senha</h2>
+        <p style="color: #666; margin-bottom: 30px; line-height: 1.5;">
+            Esqueceu sua senha? Digite seu e-mail abaixo. Se ele estiver cadastrado, enviaremos um link mágico para
+            você.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div style="margin-bottom: 25px; text-align: left;">
+                <input type="email" name="email" placeholder="Seu e-mail de cadastro" required autofocus
+                    style="width: 100%; padding: 15px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box;">
+            </div>
+
+            <button type="submit"
+                style="background-color: #0056b3; color: white; width: 100%; padding: 15px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+                Enviar Link Mágico
+            </button>
+        </form>
+
+    </div>
+</div>
+{% endblock content %}

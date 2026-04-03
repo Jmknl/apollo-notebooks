@@ -1,0 +1,58 @@
+{% extends 'appliance/base.html' %}
+
+{% block title %}Meu Dashboard - Apollo{% endblock %}
+
+{% block content %}
+<h1>Sua Estante de Cadernos</h1>
+<hr>
+
+<div style="margin-bottom: 25px;">
+    <a href="{% url 'appliance:new_book' %}" style="
+            background-color: #3f0755; 
+            color: white; 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        ">
+        📝 Adicionar um novo caderno
+    </a>
+</div>
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+    {% for book in books %}
+
+    <div
+        style="border: 1px solid #ddd; padding: 15px; width: 220px; text-align: center; border-radius: 8px; background-color: var(--bg-body); box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+
+        {% if book.cover %}
+        <img src="{{ book.cover.url }}" alt="Capa de {{ book.title }}"
+            style="max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 10px;">
+        {% endif %}
+
+        <h3 style="margin-top: 0;">{{ book.title }}</h3>
+        <p style="font-size: 12px; color: gray;">Criado em: {{ book.time|date:"d/m/Y" }}</p>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
+
+            <a href="{% url 'appliance:book_detail' book.id %}" style="text-decoration: none;">
+                <button style="width: 100%;">Abrir Caderno</button>
+            </a>
+
+            <a href="{% url 'appliance:del_book' book.id %}" style="text-decoration: none;">
+                <button
+                    style="width: 100%; background-color: #dc3545 !important; color: white !important; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; font-family: sans-serif; cursor: pointer;">
+                    🗑️ Excluir
+                </button>
+            </a>
+
+        </div>
+    </div>
+
+    {% empty %}
+    <p>Você ainda não tem nenhum caderno. Que tal criar um clicando no botão acima?</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

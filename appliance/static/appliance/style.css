@@ -1,0 +1,47 @@
+
+:root {
+    --fundo-site: #ffffff;
+    --cor-texto: #333333;
+    --botao-roxo: #6f42c1;
+    --botao-roxo-hover: #59339d;
+}
+
+body {
+    background-color: var(--fundo-site);
+    color: var(--cor-texto);
+
+    font-family: sans-serif;
+    font-weight: bold;
+    font-style: italic;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+button:not(.ck-button),
+input[type="submit"],
+.btn {
+    background-color: var(--botao-roxo);
+
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+
+    font-family: sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 16px;
+
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:not(.ck-button):hover,
+input[type="submit"]:hover,
+.btn:hover {
+    background-color: var(--botao-roxo-hover);
+    transform: translateY(-2px);
+}

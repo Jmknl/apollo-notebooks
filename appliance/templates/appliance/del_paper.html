@@ -1,0 +1,39 @@
+{% extends 'appliance/base.html' %}
+
+{% block content %}
+<div
+    style="max-width: 600px; margin: 50px auto; background-color: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #eaeaea; text-align: center;">
+
+    <h2 style="color: #dc3545; margin-top: 0; margin-bottom: 20px;">
+        ⚠️ Excluir Anotação?
+    </h2>
+
+    <div
+        style="background-color: #fff3f3; color: #cc0000; border-left: 6px solid #cc0000; padding: 15px 20px; border-radius: 4px; font-family: sans-serif; font-size: 15px; margin-bottom: 30px; text-align: left;">
+        <strong>Zona de Perigo:</strong> Você está prestes a excluir esta anotação permanentemente. O banco de dados vai
+        incinerar este registro e a ação <strong>não poderá ser desfeita</strong>.
+    </div>
+
+    <p
+        style="color: #666; margin-bottom: 30px; font-style: italic; background-color: #f8f9fa; padding: 15px; border-radius: 6px;">
+        "{{ paper.paragraphs|striptags|truncatechars:60 }}"
+    </p>
+
+    <form method="post" style="display: flex; gap: 15px; justify-content: center;">
+
+        {% csrf_token %}
+
+        <a href="{% url 'appliance:book_detail' paper.book.id %}"
+            style="background-color: #6c757d; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; font-family: sans-serif;">
+            Cancelar
+        </a>
+
+        <button type="submit"
+            style="background-color: #dc3545 !important; color: white !important; padding: 12px 24px; border: none; border-radius: 6px; font-weight: bold; font-family: sans-serif; cursor: pointer;">
+            Sim, Excluir Definitivamente
+        </button>
+
+    </form>
+
+</div>
+{% endblock content %}

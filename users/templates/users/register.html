@@ -1,0 +1,81 @@
+{% extends 'appliance/base.html' %}
+
+{% block title %}Criar Conta - Apollo Notebooks{% endblock %}
+
+{% block content %}
+<div
+    style="max-width: 400px; margin: 80px auto; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid #eaeaea;">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #3f0755; margin-top: 0; margin-bottom: 10px;">✨ Nova Conta</h2>
+        <p style="color: #666; margin: 0;">Junte-se ao Apollo Notebooks</p>
+    </div>
+
+    <form method="post" action="{% url 'users:register' %}">
+
+        {% csrf_token %}
+
+        <div style="margin-bottom: 25px;">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit"
+            style="width: 100%; background-color: #3f0755 !important; color: white !important; padding: 14px; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s;">
+            Cadastrar
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 25px; font-size: 14px; border-top: 1px solid #eee; padding-top: 20px;">
+        <p style="color: #666; margin: 0;">
+            Já tem uma conta?
+            <a href="{% url 'users:login' %}" style="color: #3f0755; font-weight: bold; text-decoration: none;">Faça
+                login aqui</a>
+        </p>
+    </div>
+
+</div>
+
+<style>
+    form p {
+        margin-bottom: 15px;
+        color: #444;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    form input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    form input:focus {
+        border-color: #3f0755;
+        outline: none;
+    }
+
+    form label {
+        display: block;
+    }
+
+    form ul {
+        font-size: 12px;
+        color: #dc3545;
+        padding-left: 20px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+    .helptext {
+        font-size: 12px;
+        color: #666;
+        font-weight: normal;
+        display: block;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}

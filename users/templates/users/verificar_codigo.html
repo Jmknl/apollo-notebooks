@@ -1,0 +1,44 @@
+{% extends "appliance/base.html" %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 60vh;">
+
+    <div
+        style="background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 450px; width: 100%; text-align: center;">
+
+        <h2 style="color: #333; margin-bottom: 15px;">🚀 Acesso Liberado?</h2>
+        <p style="color: #666; margin-bottom: 30px; line-height: 1.5;">
+            Enviamos um código de segurança de 6 dígitos para o seu e-mail. Digite-o abaixo para ativar sua conta e
+            acessar seus cadernos.
+        </p>
+
+        {% if erro %}
+        <div
+            style="background-color: #fee2e2; color: #991b1b; padding: 12px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #f87171;">
+            <strong>Atenção:</strong> {{ erro }}
+        </div>
+        {% endif %}
+
+        <form action="{% url 'users:verificar_codigo' %}" method="post">
+
+            {% csrf_token %}
+
+            <div style="margin-bottom: 25px;">
+                <input type="text" name="codigo" placeholder="000000" maxlength="6" required autofocus
+                    style="width: 100%; padding: 15px; font-size: 32px; letter-spacing: 15px; text-align: center; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-family: monospace;">
+            </div>
+
+            <button type="submit"
+                style="background-color: #0056b3; color: white; width: 100%; padding: 15px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s;">
+                Verificar Código
+            </button>
+
+        </form>
+
+        <div style="margin-top: 20px; font-size: 14px; color: #888;">
+            Não recebeu o e-mail? Verifique sua caixa de Spam.
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,234 @@
+{% extends 'appliance/base.html' %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto; font-family: sans-serif;">
+
+    <div style="text-align: center; margin-bottom: 40px;">
+
+        <div
+            style="width: 100%; height: 200px; background-color: var(--border-color); border-radius: 10px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+
+            {% if perfil.banner_image %}
+            <img src="{{ perfil.banner_image.url }}"
+                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" alt="Banner">
+            {% else %}
+            <div
+                style="width: 100%; height: 100%; border-radius: 10px; background: linear-gradient(135deg, #e0b0ff, #3f0755); opacity: 0.8;">
+            </div>
+            {% endif %}
+
+            <details id="editar-fotos-trigger"
+                style="position: absolute; top: 10px; right: 10px; z-index: 20; cursor: pointer;">
+                <summary
+                    style="list-style: none; display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background-color: rgba(0, 0, 0, 0.5); border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); transition: 0.2s;"
+                    onmouseover="this.style.backgroundColor='rgba(0, 0, 0, 0.8)'; this.style.transform='scale(1.1)';"
+                    onmouseout="this.style.backgroundColor='rgba(0, 0, 0, 0.5)'; this.style.transform='scale(1)';">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                </summary>
+
+                <div
+                    style="position: absolute; top: 45px; right: 0; background-color: var(--bg-nav); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); width: 320px; text-align: left; box-shadow: 0 15px 30px rgba(0,0,0,0.4); z-index: 25;">
+                    <form method="POST" enctype="multipart/form-data" style="margin: 0; width: 100%;">
+                        {% csrf_token %}
+
+                        <div
+                            style="margin-bottom: 15px; font-size: 13px; color: var(--text-main); word-wrap: break-word;">
+                            <style>
+                                #editar-fotos-trigger input[type="file"] {
+                                    max-width: 100%;
+                                    box-sizing: border-box;
+                                    color: var(--text-main);
+                                }
+                            </style>
+                            {{ form1.as_p }}
+                        </div>
+
+                        <button type="submit"
+                            style="background-color: #4CAF50; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; font-size: 14px; transition: 0.2s;"
+                            onmouseover="this.style.backgroundColor='#45a049'"
+                            onmouseout="this.style.backgroundColor='#4CAF50'">
+                            Salvar Alterações
+                        </button>
+                    </form>
+                </div>
+            </details>
+        </div>
+
+        <div style="margin-top: -60px; position: relative; z-index: 10;">
+            {% if perfil.profile_image %}
+            <img src="{{ perfil.profile_image.url }}"
+                style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--bg-body); object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                alt="Avatar">
+            {% else %}
+            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=f4e6ff&color=6a0dad&bold=true"
+                style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--bg-body); background-color: #eee; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                alt="Avatar Padrão">
+            {% endif %}
+        </div>
+
+        <h1 style="margin-top: 15px; color: var(--text-main); font-size: 24px;">Olá, {{ user.username }}!</h1>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+    <h2 style="color: var(--text-main); text-align: center; margin-bottom: 25px;">Meu Calendário de Eventos</h2>
+
+    <style>
+        :root {
+            --fc-button-bg-color: #6a0dad;
+            --fc-button-border-color: #6a0dad;
+            --fc-button-hover-bg-color: #5c0a96;
+            --fc-button-hover-border-color: #5c0a96;
+            --fc-button-active-bg-color: #4a087a;
+            --fc-button-active-border-color: #4a087a;
+            --fc-event-bg-color: #6a0dad;
+            --fc-event-border-color: #5c0a96;
+            --fc-today-bg-color: #f8f0ff;
+        }
+
+        .fc-col-header-cell-cushion,
+        .fc-daygrid-day-number {
+            color: var(--text-main) !important;
+            text-decoration: none !important;
+            font-weight: bold;
+        }
+
+        .fc-toolbar-title {
+            color: var(--text-main) !important;
+        }
+
+        [data-theme="dark"] .fc {
+            color: var(--text-main);
+        }
+
+        [data-theme="dark"] .fc-theme-standard td,
+        [data-theme="dark"] .fc-theme-standard th,
+        [data-theme="dark"] .fc-theme-standard .fc-scrollgrid {
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] {
+            --fc-today-bg-color: rgba(106, 13, 173, 0.2);
+        }
+
+        [data-theme="dark"] .fc-button-primary:not(:disabled).fc-button-active,
+        [data-theme="dark"] .fc-button-primary:not(:disabled):active {
+            color: #fff;
+        }
+
+        .fc-event {
+            cursor: pointer;
+
+        }
+
+        .fc-event-title {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            font-size: 0.75em !important;
+            line-height: 1.2 !important;
+            padding: 2px !important;
+        }
+    </style>
+
+    <div id='calendar'
+        style="background-color: var(--bg-nav); padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid var(--border-color);">
+    </div>
+
+</div>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
+<script>
+    document.addEventListener('click', function (event) {
+        var editarTrigger = document.getElementById('editar-fotos-trigger');
+        if (editarTrigger && editarTrigger.hasAttribute('open') && !editarTrigger.contains(event.target)) {
+            editarTrigger.removeAttribute('open');
+        }
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'pt-br',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek'
+            },
+            events: '/api/calendar/get/',
+            selectable: true,
+
+            select: function (info) {
+                var title = prompt('Qual é o título do seu compromisso?');
+                if (title) {
+                    fetch('/api/calendar/post/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken')
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            start_date: info.startStr,
+                            end_date: info.endStr
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'sucesso') {
+                                calendar.refetchEvents();
+                            } else {
+                                alert('Houve um erro: ' + (data.erro || 'Desconhecido'));
+                            }
+                        })
+                        .catch(error => console.error('Erro na conexão:', error));
+                }
+                calendar.unselect();
+            },
+
+           
+            eventClick: function (info) {
+                if (confirm('Deseja excluir o evento "' + info.event.title + '"?')) {
+                   
+                    fetch('/api/calendar/delete/' + info.event.id + '/', {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken')
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'sucesso') {
+                                info.event.remove(); 
+                            }
+                        })
+                        .catch(error => console.error('Erro na conexão:', error));
+                }
+            }
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}

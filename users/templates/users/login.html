@@ -1,0 +1,80 @@
+{% block content %}
+<div
+    style="max-width: 400px; margin: 80px auto; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 1px solid #eaeaea;">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #3f0755; margin-top: 0; margin-bottom: 10px;">🚀 Apollo Notebooks</h2>
+        <p style="color: #666; margin: 0;">Faça login para acessar seus cadernos</p>
+    </div>
+
+    {% if form.errors %}
+    <div
+        style="background-color: #fff3f3; color: #cc0000; padding: 10px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-size: 14px; border-left: 4px solid #cc0000;">
+        Usuário ou senha incorretos. Tente novamente.
+    </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'users:login' %}">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 5px;">
+            {{ form.as_p }}
+        </div>
+
+        <div style="text-align: right; margin-bottom: 25px;">
+            <a href="{% url 'users:reset' %}"
+                style="color: #3f0755; font-size: 14px; text-decoration: none; transition: color 0.3s; font-weight: bold;">
+                Esqueceu sua senha?
+            </a>
+        </div>
+
+        <button type="submit"
+            style="width: 100%; background-color: #3f0755 !important; color: white !important; padding: 14px; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s;">
+            Entrar no Sistema
+        </button>
+
+        <input type="hidden" name="next" value="{% url 'appliance:books' %}">
+    </form>
+
+    <div style="text-align: center; margin-top: 25px; font-size: 14px; border-top: 1px solid #eee; padding-top: 20px;">
+        <p style="color: #666; margin: 0;">
+            Ainda não tem conta?
+            <a href="{% url 'users:register' %}"
+                style="color: #3f0755; font-weight: bold; text-decoration: none;">Cadastre-se grátis</a>
+        </p>
+    </div>
+
+</div>
+
+<style>
+    form p {
+        margin-bottom: 15px;
+        color: #444;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    form input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    form input:focus {
+        border-color: #3f0755;
+        outline: none;
+    }
+
+    form label {
+        display: block;
+    }
+
+    a:hover {
+        opacity: 0.8;
+    }
+</style>
+{% endblock %}

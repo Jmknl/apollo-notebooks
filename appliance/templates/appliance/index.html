@@ -1,0 +1,229 @@
+{% extends 'appliance/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    :root {
+        --roxo-principal: #6a0dad;
+        --roxo-claro: #f4e6ff;
+    }
+
+    [data-theme="dark"] {
+        --roxo-claro: #2a0845;
+    }
+
+    .hero-section {
+        text-align: center;
+        padding: 80px 20px;
+        background: linear-gradient(135deg, var(--bg-body) 0%, var(--roxo-claro) 100%);
+        border-radius: 0 0 30px 30px;
+        margin-bottom: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease;
+    }
+
+    .hero-section h1 {
+        color: var(--text-main);
+        font-size: 2.8rem;
+        font-weight: 900;
+        max-width: 900px;
+        margin: 0 auto 20px auto;
+        line-height: 1.2;
+    }
+
+    .hero-section h1 span {
+        color: var(--roxo-principal);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .hero-section p.subtitle-box {
+        color: var(--text-main);
+        font-size: 1.3rem;
+        font-family: sans-serif;
+        font-style: italic;
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 15px 25px;
+        border: 3px solid var(--text-main);
+        background-color: transparent;
+        border-radius: 8px;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px 60px 20px;
+    }
+
+    .feature-card {
+        background-color: var(--bg-nav);
+        border-radius: 15px;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        border-top: 5px solid var(--roxo-principal);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(106, 13, 173, 0.2);
+    }
+
+    .feature-card img.logo-ferramenta {
+        width: 100%;
+        max-width: 180px;
+        height: auto;
+        margin: 0 auto 20px auto;
+        border-radius: 10px;
+    }
+
+    .feature-card h3 {
+        color: var(--text-main);
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        font-weight: 800;
+    }
+
+    .feature-card p.descricao {
+        color: var(--text-main);
+        opacity: 0.85;
+        font-size: 1.05rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        flex-grow: 1;
+    }
+
+    .tutorial-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--bg-body);
+        border: 1px solid var(--border-color);
+        padding: 12px;
+        border-radius: 8px;
+        text-align: left;
+        gap: 10px;
+        margin-top: auto;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .tutorial-box p {
+        font-size: 0.85rem;
+        color: var(--text-main);
+        opacity: 0.85;
+        margin: 0;
+        line-height: 1.3;
+    }
+
+    .tutorial-box img {
+        width: 120px;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .detalhes-extra {
+        margin-top: 15px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .detalhes-extra summary {
+        cursor: pointer;
+        color: var(--text-main);
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 10px 5px;
+        border-top: 1px solid var(--border-color);
+        outline: none;
+        transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    .detalhes-extra summary:hover {
+        opacity: 0.7;
+    }
+
+    .detalhes-extra p {
+        color: var(--text-main);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-top: 8px;
+        padding: 12px;
+        background-color: var(--bg-body);
+        border-radius: 6px;
+        border-left: 3px solid var(--text-main);
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+</style>
+
+<div class="hero-section">
+    <h1>Bem-vindo ao <span>Apollo</span></h1>
+    <p class="subtitle-box">O seu site para fazer anotações junto a um dicionário e a um tradutor, sem precisar sair da
+        página!</p>
+</div>
+
+<div class="cards-container">
+
+    <div class="feature-card">
+        <img class="logo-ferramenta" src="{% static 'images/True dicionary.png' %}" alt="Ferramenta Comprehend">
+        <h3>Ferramenta Comprehend</h3>
+        <p class="descricao">Descubra o significado no dicionário de <strong>Palavras</strong> isoladas com um simples
+            clique durante a sua leitura.</p>
+
+        <div class="tutorial-box">
+            <p>Para utilizá-la, basta selecionar a palavra e clicar no botão:</p>
+            <img src="{% static 'images/exemplo1.png' %}" alt="Exemplo de uso">
+        </div>
+
+        <details class="detalhes-extra">
+            <summary>Ver Idiomas Suportados</summary>
+            <p>Por agora estamos integrados com os dicionários americano e português. Em
+                breve adicionaremos mais.</p>
+        </details>
+    </div>
+
+    <div class="feature-card">
+        <img class="logo-ferramenta" src="{% static 'images/Interpreter.png' %}" alt="Ferramenta Interpretion">
+        <h3>Ferramenta Interpretion</h3>
+        <p class="descricao">Descubra o significado de <strong>Frases inteiras</strong> através do tradutor bidirecional
+            inteligente.</p>
+
+        <div class="tutorial-box">
+            <p>Para utilizá-la, basta selecionar a frase e clicar no botão:</p>
+            <img src="{% static 'images/exemplo2.png' %}" alt="Exemplo de uso">
+        </div>
+
+        <details class="detalhes-extra">
+            <summary>Como funciona o tradutor?</summary>
+            <p>A tradução funciona de modo bidirecional, ou seja, caso você escreva a frase em inglês e clique na
+                bandeira, ela irá traduzir para português, e caso você escreva em português ela irá traduzir para
+                inglês.</p>
+        </details>
+    </div>
+
+    <div class="feature-card">
+        <img class="logo-ferramenta" src="{% static 'images/calendar.png' %}" alt="Calendário Organizador">
+        <h3>Dashboard Pessoal</h3>
+        <p class="descricao">Organize as suas atividades e compromissos diretamente no seu <strong>Calendário</strong>
+            de forma rápida e visual.</p>
+
+        <div class="tutorial-box" style="justify-content: center; text-align: center;">
+            <p>Acesse suas métricas e ferramentas exclusivas na sua área pessoal.</p>
+        </div>
+
+        <details class="detalhes-extra">
+            <summary>Como acessar a Dashboard?</summary>
+            <p>Para entrar no dashboard pessoal, clique na sua foto de perfil no menu de navegação.</p>
+        </details>
+    </div>
+
+</div>
+{% endblock %}

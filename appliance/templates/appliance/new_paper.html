@@ -1,0 +1,228 @@
+{% extends 'appliance/base.html' %}
+{% load static %}
+
+{% block content %}
+<div
+    style="max-width: 1400px; width: 98%; margin: 15px auto; background-color: var(--bg-body); padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;">
+
+    <div
+        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 25px;">
+        <h2 style="color: #333; margin: 0;">📝 Nova Página em: <span style="color: #6a0dad;">{{ book }}</span></h2>
+
+        <div style="display: flex; gap: 10px;">
+            <button type="button" onclick="baixarPDF()"
+                style="background-color: #444; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 6px;">
+                📄 PDF
+            </button>
+            <button type="submit" form="new-paper-form"
+                style="background-color: #6a0dad; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                💾 Salvar Página
+            </button>
+        </div>
+    </div>
+
+    <style>
+        .barra-tradutor {
+            display: flex;
+            gap: 10px;
+            background-color: var(--bg-body);
+            padding: 10px;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-tradutor {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: transparent;
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+            transition: 0.2s;
+        }
+
+        .btn-tradutor img {
+            width: 16px;
+            height: auto;
+        }
+
+        .btn-tradutor:hover {
+            background-color: #f0f0f0;
+            border-color: #6a0dad;
+        }
+
+        .area-da-pagina p {
+            margin-bottom: 15px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .area-da-pagina input[type="text"],
+        .area-da-pagina input#id_title {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            background-color: #f8f0ff;
+            border: 2px solid #6a0dad;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .area-da-pagina input[type="text"]:focus,
+        .area-da-pagina input#id_title:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 8px rgba(106, 13, 173, 0.4);
+        }
+
+        .ck-editor__editable_inline {
+            min-height: 75vh;
+        }
+
+        .ck.ck-editor__main>.ck-editor__editable {
+            background-color: #ffffff !important;
+            color: #333333 !important;
+        }
+
+        .ck.ck-toolbar {
+            background-color: #ffffff !important;
+        }
+
+        .ck.ck-toolbar .ck-button:hover {
+            background-color: rgba(106, 13, 173, 0.1) !important;
+            border-color: #6a0dad !important;
+        }
+
+        .ck.ck-button.ck-on {
+            background: rgba(106, 13, 173, 0.15) !important;
+            border: 1px solid #6a0dad !important;
+        }
+
+        .ck.ck-button.ck-on .ck-button__label {
+            color: #6a0dad !important;
+        }
+
+        .ck.ck-color-grid__tile {
+            border: 1px solid #ddd !important;
+        }
+
+        :root[data-theme="dark"] .btn-tradutor,
+        body.dark-mode .btn-tradutor {
+            color: #f1f1f1;
+            border-color: #555;
+        }
+
+        :root[data-theme="dark"] .barra-tradutor,
+        body.dark-mode .barra-tradutor {
+            background-color: #1e1e1e;
+            border-color: #444;
+        }
+
+        :root[data-theme="dark"] .ck.ck-editor__main>.ck-editor__editable,
+        body.dark-mode .ck.ck-editor__main>.ck-editor__editable {
+            background-color: #2b2b2b !important;
+            color: #f1f1f1 !important;
+            border-color: #444 !important;
+        }
+
+        :root[data-theme="dark"] .ck.ck-toolbar,
+        body.dark-mode .ck.ck-toolbar {
+            background-color: #1e1e1e !important;
+            border-color: #444 !important;
+        }
+
+        :root[data-theme="dark"] .ck.ck-button.ck-on,
+        body.dark-mode .ck.ck-button.ck-on {
+            background: rgba(168, 85, 247, 0.2) !important;
+            border-color: #a855f7 !important;
+        }
+
+        :root[data-theme="dark"] .area-da-pagina input[type="text"],
+        body.dark-mode .area-da-pagina input[type="text"] {
+            background-color: #2b2b2b !important;
+            color: #f1f1f1 !important;
+            border-color: #a855f7 !important;
+        }
+    </style>
+
+    <div class="barra-tradutor">
+        <button class="btn-tradutor" onclick="realizarBuscaDicionario('/api/traduzir/', 'Inglês/PT')">
+            <img src="{% static 'images/Dicionariobra.png' %}" alt="Comprehend"> Comprehend
+        </button>
+        <button class="btn-tradutor" onclick="traduzirFraseCmd()">
+            <img src="{% static 'images/Interpretionbarrabr.png' %}" alt="Interpretion"> Interpretion
+        </button>
+        <button class="btn-tradutor" onclick="realizarTraducaoIdioma('fr', 'Francês')">
+            <img src="https://flagcdn.com/16x12/fr.png" alt="FR"> FR
+        </button>
+        <button class="btn-tradutor" onclick="realizarTraducaoIdioma('es', 'Espanhol')">
+            <img src="https://flagcdn.com/16x12/es.png" alt="ES"> ES
+        </button>
+        <button class="btn-tradutor" onclick="realizarTraducaoIdioma('it', 'Italiano')">
+            <img src="https://flagcdn.com/16x12/it.png" alt="IT"> IT
+        </button>
+    </div>
+
+    <form id="new-paper-form" action="{% url 'appliance:new_paper' book.id %}" method="post">
+        {% csrf_token %}
+        <div class="area-da-pagina">
+            {{ form.media }}
+            {{ form.as_p }}
+        </div>
+    </form>
+
+    <script src="{% static 'js/apis_apollo.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        function baixarPDF() {
+            const editorElement = document.querySelector('.ck-content');
+            if (!editorElement) { alert("Erro ao carregar o conteúdo."); return; }
+
+            const conteudoHTML = editorElement.innerHTML;
+            if (!conteudoHTML || conteudoHTML === '<p><br data-cke-filler="true"></p>') {
+                alert("A anotação está vazia!");
+                return;
+            }
+
+            const paginaFantasma = document.createElement('div');
+            paginaFantasma.style.padding = '30px';
+            paginaFantasma.style.fontFamily = 'sans-serif';
+
+            const titleInput = document.querySelector('input[name="title"]');
+            const titleValue = titleInput ? titleInput.value : 'Sem Título';
+
+            const h1Element = document.createElement('h1');
+            h1Element.textContent = titleValue; 
+            paginaFantasma.appendChild(h1Element);
+
+            paginaFantasma.appendChild(document.createElement('hr'));
+
+            const divConteudo = document.createElement('div');
+            divConteudo.innerHTML = conteudoHTML;
+            paginaFantasma.appendChild(divConteudo);
+
+            const configuracao = {
+                margin: 15,
+                filename: 'Nova_Anotacao_Apollo.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(configuracao).from(paginaFantasma).save();
+        }
+    </script>
+</div>
+{% endblock %}

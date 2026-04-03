@@ -1,0 +1,151 @@
+{% extends 'appliance/base.html' %}
+
+{% block content %}
+<div class="container-caderno"
+    style="max-width: 600px; margin: 40px auto; background-color: var(--bg-body); padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;">
+
+    <h2 class="titulo-caderno"
+        style="text-align: center; color: #333; margin-top: 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 25px;">
+        📝 Criando novo caderno
+    </h2>
+
+    <form action="{% url 'appliance:new_book' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <style>
+            .area-do-form p {
+                margin-bottom: 20px;
+                font-weight: bold;
+                color: #555;
+            }
+
+            .area-do-form input[type="text"],
+            .area-do-form input[type="file"],
+            .area-do-form select,
+            .area-do-form textarea {
+                width: 100%;
+                padding: 12px 15px;
+                margin-top: 8px;
+                font-size: 1rem;
+                font-weight: bold;
+                color: #333;
+                background-color: #f8f0ff;
+                border: 2px solid #880094;
+                border-radius: 8px;
+                outline: none;
+                transition: all 0.3s ease;
+                box-sizing: border-box;
+            }
+
+            .area-do-form input[type="file"] {
+                padding: 9px 15px;
+                background-color: transparent;
+            }
+
+            .area-do-form input[type="text"]:focus,
+            .area-do-form input[type="file"]:focus,
+            .area-do-form select:focus,
+            .area-do-form textarea:focus {
+                background-color: #ffffff;
+                box-shadow: 0 0 8px rgba(136, 0, 148, 0.4);
+            }
+
+            .btn-salvar {
+                width: 100%;
+                background-color: #007bff;
+                color: white;
+                padding: 14px;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 15px;
+                transition: 0.2s;
+            }
+
+            .btn-salvar:hover {
+                background-color: #0056b3;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .container-caderno {
+                    border-color: #444 !important;
+                }
+
+                .titulo-caderno {
+                    color: #f1f1f1 !important;
+                    border-color: #444 !important;
+                }
+
+                .area-do-form p {
+                    color: #ccc;
+                }
+
+                .area-do-form input[type="text"],
+                .area-do-form input[type="file"],
+                .area-do-form select,
+                .area-do-form textarea {
+                    background-color: #2b2b2b;
+                    color: #f1f1f1;
+                    border-color: #a855f7;
+                }
+
+                .area-do-form input[type="text"]:focus,
+                .area-do-form input[type="file"]:focus,
+                .area-do-form select:focus,
+                .area-do-form textarea:focus {
+                    background-color: #1e1e1e;
+                    box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+                }
+            }
+
+            :root[data-theme="dark"] .container-caderno,
+            body.dark-mode .container-caderno {
+                border-color: #444 !important;
+            }
+
+            :root[data-theme="dark"] .titulo-caderno,
+            body.dark-mode .titulo-caderno {
+                color: #f1f1f1 !important;
+                border-color: #444 !important;
+            }
+
+            :root[data-theme="dark"] .area-do-form p,
+            body.dark-mode .area-do-form p {
+                color: #ccc !important;
+            }
+
+            :root[data-theme="dark"] .area-do-form input,
+            body.dark-mode .area-do-form input,
+            :root[data-theme="dark"] .area-do-form select,
+            body.dark-mode .area-do-form select,
+            :root[data-theme="dark"] .area-do-form textarea,
+            body.dark-mode .area-do-form textarea {
+                background-color: #2b2b2b !important;
+                color: #f1f1f1 !important;
+                border-color: #a855f7 !important;
+            }
+
+            :root[data-theme="dark"] .area-do-form input:focus,
+            body.dark-mode .area-do-form input:focus,
+            :root[data-theme="dark"] .area-do-form select:focus,
+            body.dark-mode .area-do-form select:focus,
+            :root[data-theme="dark"] .area-do-form textarea:focus,
+            body.dark-mode .area-do-form textarea:focus {
+                background-color: #1e1e1e !important;
+                box-shadow: 0 0 8px rgba(168, 85, 247, 0.6) !important;
+            }
+        </style>
+
+        <div class="area-do-form">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="btn-salvar">
+            Salvar Caderno
+        </button>
+
+    </form>
+</div>
+{% endblock content %}

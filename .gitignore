@@ -1,0 +1,9 @@
+.env
+db.sqlite3
+seu_banco.db
+sga/
+__pycache__/
+*.pyc
+media/
+staticfiles/
+.vscode/
